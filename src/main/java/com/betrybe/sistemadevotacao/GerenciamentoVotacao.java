@@ -2,6 +2,8 @@ package com.betrybe.sistemadevotacao;
 
 import java.util.ArrayList;
 
+
+
 /**
  * Esta classe é responsável pelo gerenciamento das votações no sistema.
  */
@@ -83,20 +85,24 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
    * @param numeroPessoaCandidata O número da pessoa candidata.
    */
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
+    boolean jaVotou = false;
+
     if (!cpfsComputados.isEmpty()) {
       for (String cpf : cpfsComputados) {
         if (cpf.equals(cpfPessoaEleitora)) {
+          jaVotou = true;
           System.out.println("Pessoa eleitora já votou!");
           return;
         }
       }
     }
-    cpfsComputados.add(cpfPessoaEleitora);
+    if (!jaVotou) {
+      cpfsComputados.add(cpfPessoaEleitora);
+    }
 
     for (PessoaCandidata pessoa : pessoasCandidatas) {
       if (pessoa.getNumero() == numeroPessoaCandidata) {
         pessoa.receberVoto();
-        return;
       }
     }
   }
@@ -106,18 +112,17 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
    */
   public void mostrarResultado() {
     if (cpfsComputados.isEmpty()) {
-      System.out.println("É preciso ter pelo menos um voto para mostrar o resultado!");
+      System.out.println("É preciso ter pelo menos um " 
+          + " voto para mostrar o resultado!");
       return;
     }
 
     int totalVotos = cpfsComputados.size();
 
-    for (PessoaCandidata candidato : pessoasCandidatas) {
-      int votosCandidatos = candidato.getVotos();
-      int porcentagemVotos = Math.round((float) votosCandidatos / totalVotos * 100);
-
-      System.out.printf("Nome: %s - %d votos (%d%%)%n", 
-          candidato.getNome(), votosCandidatos, porcentagemVotos);
+    for (PessoaCandidata candidata : pessoasCandidatas) {
+      System.out.printf("Nome: %s - %d votos ( %d%% )%n",
+          candidata.getNome(), candidata.getVotos(),
+          Math.round((float) candidata.getVotos() / totalVotos * 100));
     }
     System.out.printf("Total de votos: %d%n", totalVotos);
   }
