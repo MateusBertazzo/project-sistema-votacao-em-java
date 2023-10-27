@@ -1,21 +1,30 @@
 package com.betrybe.sistemadevotacao;
+
 import java.util.ArrayList;
 
 /**
  * Esta classe é responsável pelo gerenciamento das votações no sistema.
  */
-public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface{
+public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
   private static ArrayList<PessoaCandidata> pessoasCandidatas;
   private static ArrayList<PessoaEleitora> pessoasEleitoras;
   private static ArrayList<String> cpfsComputados;
 
-
+  /**
+   * Construtor da classe GerenciamentoVotacao.
+   */
   public GerenciamentoVotacao() {
     pessoasCandidatas = new ArrayList<PessoaCandidata>();
     pessoasEleitoras = new ArrayList<PessoaEleitora>();
     cpfsComputados = new ArrayList<String>();
   }
 
+  /**
+   * Método para cadastrar uma pessoa candidata no sistema.
+   *
+   * @param nome   O nome da pessoa candidata.
+   * @param numero O número da pessoa candidata.
+   */
   public void cadastrarPessoaCandidata(String nome, int numero) {
     for (PessoaCandidata pessoa : pessoasCandidatas) {
       if (pessoa.getNumero() == numero) {
@@ -27,6 +36,12 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface{
     }
   }
 
+  /**
+   * Método para cadastrar uma pessoa eleitora no sistema.
+   *
+   * @param nome O nome da pessoa eleitora.
+   * @param cpf  O CPF da pessoa eleitora.
+   */
   public void cadastrarPessoaEleitora(String nome, String cpf) {
     for (PessoaEleitora pessoa : pessoasEleitoras) {
       if (pessoa.getCpf().equals(cpf)) {
@@ -38,6 +53,12 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface{
     }
   }
 
+  /**
+   * Método para realizar uma votação.
+   *
+   * @param cpfPessoaEleitora     O CPF da pessoa eleitora.
+   * @param numeroPessoaCandidata O número da pessoa candidata.
+   */
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
     if (cpfsComputados.contains(cpfPessoaEleitora)) {
       System.out.println("Pessoa eleitora já votou!");
@@ -57,6 +78,24 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface{
     }
   }
 
+  /**
+   * Método para mostrar o resultado da votação.
+   */
   public void mostrarResultado() {
+    if (cpfsComputados.isEmpty()) {
+      System.out.println("É preciso ter pelo menos um voto para mostrar o resultado!");
+      return;
+    }
+
+    int totalVotos = cpfsComputados.size();
+
+    for (PessoaCandidata candidato : pessoasCandidatas) {
+      int votosCandidatos = candidato.getvotos();
+      int porcentagemVotos = Math.round(votosCandidatos * 100 / totalVotos);
+
+      System.out.printf("Nome: %s - %d votos (%d%%)%n", 
+          candidato.getNome(), votosCandidatos, porcentagemVotos);
+    }
+    System.out.printf("Total de votos: %d%n", totalVotos);
   }
 }
