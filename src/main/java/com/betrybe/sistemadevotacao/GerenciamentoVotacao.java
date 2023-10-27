@@ -39,7 +39,22 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface{
   }
 
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
+    if (cpfsComputados.contains(cpfPessoaEleitora)) {
+      System.out.println("Pessoa eleitora já votou!");
+      return;
+    }
+    for (PessoaEleitora pessoa : pessoasEleitoras) {
+      if (pessoa.getCpf().equals(cpfPessoaEleitora)) {
+        cpfsComputados.add(cpfPessoaEleitora);
 
+        for (PessoaCandidata candidato : pessoasCandidatas) {
+          if (candidato.getNumero() == numeroPessoaCandidata) {
+            candidato.receberVoto();
+            return;
+          }
+        }
+      }
+    }
   }
 
   public void mostrarResultado() {
