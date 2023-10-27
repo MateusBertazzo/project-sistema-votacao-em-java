@@ -12,5 +12,4 @@ public interface GerenciamentoVotacaoInterface {
   void votar(String cpfPessoaEleitora, int numeroPessoaCandidata);
 
   void mostrarResultado();
-  
 }
