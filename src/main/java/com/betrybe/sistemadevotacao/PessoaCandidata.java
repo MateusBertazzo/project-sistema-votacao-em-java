@@ -20,13 +20,13 @@ public class PessoaCandidata extends Pessoa {
     this.votos = 0;
   }
 
-  public String getNome() {
-    return nome;
-  }
+  // public String getNome() {
+  //   return nome;
+  // }
 
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
+  // public void setNome(String nome) {
+  //   this.nome = nome;
+  // }
 
   public int getNumero() {
     return numero;
@@ -37,14 +37,14 @@ public class PessoaCandidata extends Pessoa {
   }
 
   public int getvotos() {
-    return this.votos;
+    return votos;
   }
 
   public void setvotos(int votos) {
     this.votos = votos;
   }
 
-  public void votar() {
+  public void receberVoto() {
     this.votos += 1;
   }
 }
