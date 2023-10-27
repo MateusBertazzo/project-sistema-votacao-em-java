@@ -83,23 +83,20 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
    * @param numeroPessoaCandidata O número da pessoa candidata.
    */
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
-    if (cpfsComputados.isEmpty()) {
-      return;
-    }
-    if (cpfsComputados.contains(cpfPessoaEleitora)) {
-      System.out.println("Pessoa eleitora já votou!");
-      return;
-    }
-    for (PessoaEleitora pessoa : pessoasEleitoras) {
-      if (pessoa.getCpf().equals(cpfPessoaEleitora)) {
-        cpfsComputados.add(cpfPessoaEleitora);
-
-        for (PessoaCandidata candidato : pessoasCandidatas) {
-          if (candidato.getNumero() == numeroPessoaCandidata) {
-            candidato.receberVoto();
-            return;
-          }
+    if (!cpfsComputados.isEmpty()) {
+      for (String cpf : cpfsComputados) {
+        if (cpf.equals(cpfPessoaEleitora)) {
+          System.out.println("Pessoa eleitora já votou!");
+          return;
         }
+      }
+    }
+    cpfsComputados.add(cpfPessoaEleitora);
+
+    for (PessoaCandidata pessoa : pessoasCandidatas) {
+      if (pessoa.getNumero() == numeroPessoaCandidata) {
+        pessoa.receberVoto();
+        return;
       }
     }
   }
@@ -117,7 +114,7 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
 
     for (PessoaCandidata candidato : pessoasCandidatas) {
       int votosCandidatos = candidato.getVotos();
-      int porcentagemVotos = Math.round(votosCandidatos * 100 / totalVotos);
+      int porcentagemVotos = Math.round((float) votosCandidatos / totalVotos * 100);
 
       System.out.printf("Nome: %s - %d votos (%d%%)%n", 
           candidato.getNome(), votosCandidatos, porcentagemVotos);
