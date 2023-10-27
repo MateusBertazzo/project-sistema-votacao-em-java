@@ -19,6 +19,18 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
     cpfsComputados = new ArrayList<String>();
   }
 
+  public ArrayList<PessoaCandidata> getPessoasCandidatas() {
+    return pessoasCandidatas;
+  }
+
+  public ArrayList<PessoaEleitora> getPessoasEleitoras() {
+    return pessoasEleitoras;
+  }
+
+  public ArrayList<String> getCpfsComputados() {
+    return cpfsComputados;
+  }
+
   /**
    * Método para cadastrar uma pessoa candidata no sistema.
    *
@@ -26,14 +38,20 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
    * @param numero O número da pessoa candidata.
    */
   public void cadastrarPessoaCandidata(String nome, int numero) {
-    for (PessoaCandidata pessoa : pessoasCandidatas) {
-      if (pessoa.getNumero() == numero) {
-        System.out.println("Número da pessoa candidata já utilizado!");
-        return;
-      }
+    if (pessoasCandidatas.isEmpty()) {
       PessoaCandidata novaPessoaCandidata = new PessoaCandidata(nome, numero);
       pessoasCandidatas.add(novaPessoaCandidata);
+    } else {
+      for (PessoaCandidata pessoa : pessoasCandidatas) {
+        if (pessoa.getNumero() == numero) {
+          System.out.println("Número da pessoa candidata já utilizado!");
+          return;
+        }
+        PessoaCandidata novaPessoaCandidata = new PessoaCandidata(nome, numero);
+        pessoasCandidatas.add(novaPessoaCandidata);
+      }
     }
+    
   }
 
   /**
