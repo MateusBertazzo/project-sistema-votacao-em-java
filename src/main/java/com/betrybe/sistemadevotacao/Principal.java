@@ -48,7 +48,7 @@ public class Principal {
 
       int opcao = scanner.nextInt();
 
-      if(opcao == 2) {
+      if (opcao == 2) {
         break;
       } else if (opcao == 1) {
         System.out.println("Entre com o nome da pessoa eleitora:");
