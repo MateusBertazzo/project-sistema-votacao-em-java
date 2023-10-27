@@ -61,13 +61,18 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
    * @param cpf  O CPF da pessoa eleitora.
    */
   public void cadastrarPessoaEleitora(String nome, String cpf) {
-    for (PessoaEleitora pessoa : pessoasEleitoras) {
-      if (pessoa.getCpf().equals(cpf)) {
-        System.out.println("Pessoa eleitora já cadastrada!");
-        return;
-      }
+    if (pessoasEleitoras.isEmpty()) {
       PessoaEleitora novaPessoaEleitora = new PessoaEleitora(nome, cpf);
       pessoasEleitoras.add(novaPessoaEleitora);
+    } else {
+      for (PessoaEleitora pessoa : pessoasEleitoras) {
+        if (pessoa.getCpf().equals(cpf)) {
+          System.out.println("Pessoa eleitora já cadastrada!");
+          return;
+        }
+        PessoaEleitora novaPessoaEleitora = new PessoaEleitora(nome, cpf);
+        pessoasEleitoras.add(novaPessoaEleitora);
+      }
     }
   }
 
@@ -78,6 +83,9 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
    * @param numeroPessoaCandidata O número da pessoa candidata.
    */
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
+    if (cpfsComputados.isEmpty()) {
+      return;
+    }
     if (cpfsComputados.contains(cpfPessoaEleitora)) {
       System.out.println("Pessoa eleitora já votou!");
       return;
