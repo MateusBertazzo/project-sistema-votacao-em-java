@@ -4,14 +4,19 @@ package com.betrybe.sistemadevotacao;
 /**
  * Esta classe representa uma pessoa no sistema de votação.
  */
-public class Pessoa {
- protected String nome;
+public abstract class Pessoa {
+  protected String nome;
+
+
+  public Pessoa(String nome) {
+    this.nome = nome;
+  }
 
   public String getNome() {
-    return this.nome;
+    return nome;
   }
 
   public void setNome(String nome) {
-     this.nome = nome;
+    this.nome = nome;
   }
 }
