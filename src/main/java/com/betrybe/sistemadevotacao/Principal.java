@@ -18,7 +18,11 @@ public class Principal {
     // TODO Auto-generated method stub
 
     while (true) {
-      System.out.println("Cadastrar pessoa candidata?/n1 - Sim/n2 - Não");
+      System.out.println("Cadastrar pessoa candidata?");
+      System.out.println("1 - Sim");
+      System.out.println("2 - Não");
+      System.out.println("Entre com o número correspondente à opção desejada:");
+      
       int opcao = scanner.nextInt();
       scanner.nextLine();
 
@@ -33,6 +37,28 @@ public class Principal {
         scanner.nextLine();
 
         gerenciamentoVotacao.cadastrarPessoaCandidata(nome, numero);
+      }
+    }
+
+    while (true) {
+      System.out.println("Cadastrar pessoa eleitora?");
+      System.out.println("1 - Sim");
+      System.out.println("2 - Não");
+      System.out.println("Entre com o número correspondente à opção desejada:");
+
+      int opcao = scanner.nextInt();
+
+      if(opcao == 2) {
+        break;
+      } else if (opcao == 1) {
+        System.out.println("Entre com o nome da pessoa eleitora:");
+        String nome = scanner.nextLine();
+        scanner.nextLine();
+
+        System.out.println("Entre com o CPF da pessoa eleitora:");
+        String cpf = scanner.nextLine();
+
+        gerenciamentoVotacao.cadastrarPessoaEleitora(nome, cpf);
       }
     }
     scanner.close();
