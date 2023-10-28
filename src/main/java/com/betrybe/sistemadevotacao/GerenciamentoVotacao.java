@@ -8,37 +8,20 @@ import java.util.ArrayList;
  * Esta classe é responsável pelo gerenciamento das votações no sistema.
  */
 public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
-  private static ArrayList<PessoaCandidata> pessoasCandidatas;
-  private static ArrayList<PessoaEleitora> pessoasEleitoras;
-  private static ArrayList<String> cpfsComputados;
+  private ArrayList<PessoaCandidata> pessoasCandidatas;
+  private ArrayList<PessoaEleitora> pessoasEleitoras;
+  private ArrayList<String> cpfsComputados;
 
   /**
    * Construtor da classe GerenciamentoVotacao.
    */
   public GerenciamentoVotacao() {
-    pessoasCandidatas = new ArrayList<PessoaCandidata>();
-    pessoasEleitoras = new ArrayList<PessoaEleitora>();
-    cpfsComputados = new ArrayList<String>();
+    this.pessoasCandidatas = new ArrayList<>();
+    this.pessoasEleitoras = new ArrayList<>();
+    this.cpfsComputados = new ArrayList<>();
   }
 
-  public ArrayList<PessoaCandidata> getPessoasCandidatas() {
-    return pessoasCandidatas;
-  }
-
-  public ArrayList<PessoaEleitora> getPessoasEleitoras() {
-    return pessoasEleitoras;
-  }
-
-  public ArrayList<String> getCpfsComputados() {
-    return cpfsComputados;
-  }
-
-  /**
-   * Método para cadastrar uma pessoa candidata no sistema.
-   *
-   * @param nome   O nome da pessoa candidata.
-   * @param numero O número da pessoa candidata.
-   */
+  @Override
   public void cadastrarPessoaCandidata(String nome, int numero) {
     if (pessoasCandidatas.isEmpty()) {
       PessoaCandidata novaPessoaCandidata = new PessoaCandidata(nome, numero);
@@ -49,19 +32,14 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
           System.out.println("Número da pessoa candidata já utilizado!");
           return;
         }
-        PessoaCandidata novaPessoaCandidata = new PessoaCandidata(nome, numero);
-        pessoasCandidatas.add(novaPessoaCandidata);
       }
+      PessoaCandidata novaPessoaCandidata = new PessoaCandidata(nome, numero);
+      pessoasCandidatas.add(novaPessoaCandidata);
     }
     
   }
 
-  /**
-   * Método para cadastrar uma pessoa eleitora no sistema.
-   *
-   * @param nome O nome da pessoa eleitora.
-   * @param cpf  O CPF da pessoa eleitora.
-   */
+  @Override
   public void cadastrarPessoaEleitora(String nome, String cpf) {
     if (pessoasEleitoras.isEmpty()) {
       PessoaEleitora novaPessoaEleitora = new PessoaEleitora(nome, cpf);
@@ -72,18 +50,13 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
           System.out.println("Pessoa eleitora já cadastrada!");
           return;
         }
-        PessoaEleitora novaPessoaEleitora = new PessoaEleitora(nome, cpf);
-        pessoasEleitoras.add(novaPessoaEleitora);
       }
+      PessoaEleitora novaPessoaEleitora = new PessoaEleitora(nome, cpf);
+      pessoasEleitoras.add(novaPessoaEleitora);
     }
   }
 
-  /**
-   * Método para realizar uma votação.
-   *
-   * @param cpfPessoaEleitora     O CPF da pessoa eleitora.
-   * @param numeroPessoaCandidata O número da pessoa candidata.
-   */
+  @Override
   public void votar(String cpfPessoaEleitora, int numeroPessoaCandidata) {
     boolean jaVotou = false;
 
@@ -107,13 +80,10 @@ public class GerenciamentoVotacao implements GerenciamentoVotacaoInterface {
     }
   }
 
-  /**
-   * Método para mostrar o resultado da votação.
-   */
+  @Override
   public void mostrarResultado() {
     if (cpfsComputados.isEmpty()) {
-      System.out.println("É preciso ter pelo menos um " 
-          + " voto para mostrar o resultado!");
+      System.out.println("É preciso ter pelo menos um voto para mostrar o resultado");
       return;
     }
 
