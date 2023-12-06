@@ -35,7 +35,6 @@ public class Principal {
         System.out.println("Entre com o número da pessoa candidata:");
         int numero = scanner.nextInt();
         scanner.nextLine();
-
         gerenciamentoVotacao.cadastrarPessoaCandidata(nome, numero);
       }
     }
@@ -59,6 +58,41 @@ public class Principal {
         String cpf = scanner.nextLine();
 
         gerenciamentoVotacao.cadastrarPessoaEleitora(nome, cpf);
+      }
+    }
+
+    Boolean votacaoEmAndamento = true;
+    while (votacaoEmAndamento) {
+      System.out.println("Entre com o número correspondente à opção desejada:");
+      System.out.println("1 - Votar");
+      System.out.println("2 - Resultado Parcial");
+      System.out.println("3 - Finalizar votação");
+
+      int opcao = scanner.nextInt();
+
+      switch (opcao) {
+        case 1:
+          System.out.println("Entre com o CPF da pessoa eleitora:");
+          String cpf = scanner.nextLine();
+          scanner.nextLine();
+
+          System.out.println("Entre com o número da pessoa candidata:");
+          int numero = scanner.nextInt();
+          gerenciamentoVotacao.votar(cpf, numero);
+          break;
+      
+        case 2:
+          gerenciamentoVotacao.mostrarResultado();
+          break;
+
+        case 3:
+          gerenciamentoVotacao.mostrarResultado();
+          votacaoEmAndamento = false;
+          break;
+
+        default:
+          System.out.println("Opção inválida! Tente novamente.");
+          break;
       }
     }
     scanner.close();
